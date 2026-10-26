@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)file:///C:/Users/Admin/Downloads/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Dashboard</title>
+<style>
+:root{--bg:#f6f5f1;--card:#fff;--ink:#1d1d24;--mute:#6b6b78;--line:#e6e4dc;--ac:#4b4fd6;--ac2:#e8e9fb;--ok:#2e8b57;--warn:#c27a14;--bad:#cf3f3f;--ch:#8a3fa8;--ch2:#f3e6f8;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15151b;--card:#1f1f28;--ink:#ecebf2;--mute:#9a9aab;--line:#32323f;--ac:#8d90ff;--ac2:#2a2b4a;--ok:#5cc58b;--warn:#e8a94a;--bad:#f07575;--ch:#d08be8;--ch2:#3a2646;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#15151b;--card:#1f1f28;--ink:#ecebf2;--mute:#9a9aab;--line:#32323f;--ac:#8d90ff;--ac2:#2a2b4a;--ok:#5cc58b;--warn:#e8a94a;--bad:#f07575;--ch:#d08be8;--ch2:#3a2646;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:26px;margin:0}
+.sub{color:var(--mute);margin:2px 0 18px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:16px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.stat b{display:block;font-size:26px;line-height:1.1}
+.stat span{color:var(--mute);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;min-width:0}
+.card.wide{grid-column:1/-1}
+.card h2{font-size:16px;margin:0 0 10px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.card.choir h2{color:var(--ch)}
+form{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+input,select,button{font:inherit;color:var(--ink)}
+input,select{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;min-width:0}
+input[type=text]{flex:1 1 140px}
+button,.btn{background:var(--ac);color:#fff;border:0;border-radius:8px;padding:8px 12px;cursor:pointer;text-decoration:none;font-size:14px;display:inline-block}
+button.ghost,.btn.ghost{background:var(--ac2);color:var(--ac)}
+.choir button.add{background:var(--ch)}
+ul{list-style:none;margin:0;padding:0}
+li{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
+li:first-child{border-top:0}
+li .t{flex:1;min-width:0;overflow-wrap:anywhere}
+li.done .t{text-decoration:line-through;color:var(--mute)}
+.x{background:none;color:var(--mute);padding:2px 8px;font-size:18px}
+.pill{font-size:12px;border-radius:999px;padding:2px 9px;background:var(--ac2);color:var(--ac);white-space:nowrap}
+.pill.ch{background:var(--ch2);color:var(--ch)}
+.pill.ok{color:var(--ok)}.pill.warn{color:var(--warn)}.pill.bad{color:var(--bad)}
+.day{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--mute);margin:10px 0 2px}
+.when{width:64px;color:var(--mute);font-size:13px;flex:none}
+.empty{color:var(--mute);font-size:14px;padding:6px 0}
+.note{color:var(--mute);font-size:12.5px;margin-top:10px}
+.row{display:flex;gap:6px;flex-wrap:wrap}
+.next{border-color:var(--ac);background:var(--ac2)}
+.nxt{display:flex;gap:20px;flex-wrap:wrap;align-items:center}
+.big{font-size:40px;font-weight:700;line-height:1.1;color:var(--ac)}
+.nt{font-size:20px;font-weight:600}
+.nxi{display:grid;gap:4px;font-size:16px}
+.next .day{margin:4px 0 0}
+.focus li:first-child .t{font-weight:600;font-size:17px}
+.focus li:first-child{padding-top:2px}
+.dl-red{border:2px solid var(--bad);background:color-mix(in srgb,var(--bad) 14%,var(--card))}
+.dl-red h2{color:var(--bad);font-size:20px}
+.dl-soon{border:2px solid var(--warn);background:color-mix(in srgb,var(--warn) 12%,var(--card))}
+.dl-soon h2{color:var(--warn)}
+.dl-clear{border:2px solid var(--ok)}
+.dl-clear h2{color:var(--ok)}
+.grip{cursor:grab;touch-action:none;color:var(--mute);font-size:20px;user-select:none;padding:2px 4px}
+.pn{font-weight:700;color:var(--ac);width:18px;text-align:center;flex:none}
+li.drag{opacity:.7;background:var(--ac2);border-radius:8px}
+input[type=checkbox]{width:18px;height:18px;accent-color:var(--ac)}
+</style></head>
+<body><div class="wrap">
+<h1 id="hi">Good morning 👋</h1><p class="sub" id="date">Tuesday, October 27, 2026</p>
+<div class="stats" id="stats"><div class="stat"><b>3</b><span>Events today</span></div><div class="stat"><b>0</b><span>Deadlines within 7 days</span></div><div class="stat"><b>0</b><span>Open to-dos</span></div><div class="stat"><b>0</b><span>Choir tasks open</span></div></div>
+<div class="grid">
+
+<section class="card wide next">
+<h2>Next up</h2>
+<div id="nx"><div class="nxt"><div><div class="big">7:30 AM</div><div class="day">Today · in 6h 0m</div></div><div class="nxi"><div class="nt">EE101-1L (E07)</div><div>📍 NW204</div><div>🚶 Leave by <b>7:15 AM</b></div><label><input type="checkbox" data-a="tog" data-l="events" data-id="9rrrkjm"> Mark as done</label></div></div></div>
+<p class="note">Leave <select id="buf"><option value="5">5 min</option><option value="10">10 min</option><option value="15">15 min</option><option value="30">30 min</option><option value="45">45 min</option><option value="60">1 hour</option></select> before it starts (travel time).</p>
+</section>
+
+<section class="card wide dl-clear" id="dt"><h2>✅ No deadlines</h2><div class="empty">You’re all clear.</div></section>
+
+<section class="card wide focus">
+<h2>Do your tasks <span class="pill" id="fc">0 to do</span></h2>
+<ul id="focus"><div class="empty">All done 🎉 Nothing left to do.</div></ul>
+</section>
+
+<section class="card wide">
+<h2>Calendar <span class="row">
+<a class="btn" href="https://calendar.google.com/calendar/u/0/r" target="_blank" rel="noopener">Open Google Calendar</a>
+<label class="btn ghost">Import .ics<input type="file" id="ics" accept=".ics,text/calendar" hidden=""></label></span></h2>
+<form id="fEv"><input type="text" name="t" placeholder="Add an event…" required=""><input type="date" name="d" required=""><input type="time" name="h"><input type="text" name="l" placeholder="Room / place"><button>Add</button></form>
+<div id="events"><div class="day">Today</div><ul><li class=""><input type="checkbox" data-a="tog" data-l="events" data-id="9rrrkjm"><span class="when">7:30 AM</span><span class="t">EE101-1L (E07) <span class="pill">NW204</span></span><button class="x" data-a="del" data-l="events" data-id="9rrrkjm" aria-label="Remove">×</button></li><li class=""><input type="checkbox" data-a="tog" data-l="events" data-id="9h0m4s6"><span class="when">3:00 PM</span><span class="t">EE101-1 (E07) <span class="pill">NW404</span></span><button class="x" data-a="del" data-l="events" data-id="9h0m4s6" aria-label="Remove">×</button></li><li class=""><input type="checkbox" data-a="tog" data-l="events" data-id="xq0hxrl"><span class="when">4:30 PM</span><span class="t">CPE115-4 (E02) <span class="pill">W416</span></span><button class="x" data-a="del" data-l="events" data-id="xq0hxrl" aria-label="Remove">×</button></li></ul><div class="day">Tomorrow</div><ul><li class=""><input type="checkbox" data-a="tog" data-l="events" data-id="d1evsm3"><span class="when">3:00 PM</span><span class="t">EEA109-4 (B4) <span class="pill">W407</span></span><button class="x" data-a="del" data-l="events" data-id="d1evsm3" aria-label="Remove">×</button></li></ul><div class="day">Sat, Oct 31</div><ul><li class=""><input type="checkbox" data-a="tog" data-l="events" data-id="74x8eav"><span class="when">3:00 PM</span><span class="t">EE101-1 (E07) <span class="pill">FLD</span></span><button class="x" data-a="del" data-l="events" data-id="74x8eav" aria-label="Remove">×</button></li><li class=""><input type="checkbox" data-a="tog" data-l="events" data-id="8e8xa1b"><span class="when">3:00 PM</span><span class="t">EE101-1 (E07) <span class="pill">FLD</span></span><button class="x" data-a="del" data-l="events" data-id="8e8xa1b" aria-label="Remove">×</button></li></ul><div class="day">Mon, Nov 2</div><ul><li class=""><input type="checkbox" data-a="tog" data-l="events" data-id="03gklrv"><span class="when">7:30 AM</span><span class="t">CAD30L-1 (A6) <span class="pill">NB1</span></span><button class="x" data-a="del" data-l="events" data-id="03gklrv" aria-label="Remove">×</button></li></ul></div>
+<p class="note">To sync Google Calendar: in Google Calendar go to Settings → Import &amp; export → Export, unzip, then import the .ics file here. Repeating events show only their first date.</p>
+</section>
+
+<section class="card"><h2>Deadlines <button type="button" class="ghost" id="sortDl">Sort by date</button></h2>
+<p class="note" style="margin:-4px 0 8px">Drag ⠿ to set what to do first. #1 is your top priority.</p>
+<form id="fDl"><input type="text" name="t" placeholder="What’s due?" required=""><input type="date" name="d" required=""><button>Add</button></form>
+<ul id="deadlines"><div class="empty">No deadlines. Nice.</div></ul></section>
+
+<section class="card"><h2>To-do</h2>
+<form id="fTd"><input type="text" name="t" placeholder="Add a task…" required=""><button>Add</button></form>
+<ul id="todos"><div class="empty">Nothing here yet.</div></ul></section>
+
+<section class="card choir"><h2>Choir tasks</h2>
+<form id="fCh"><input type="text" name="t" placeholder="e.g. Learn alto line, bar 24…" required="">
+<select name="c"><option>Rehearsal</option><option>Music</option><option>Concert</option><option>Admin</option></select>
+<input type="date" name="d"><button class="add">Add</button></form>
+<ul id="choir"><div class="empty">Nothing here yet.</div></ul></section>
+
+</div></div>
+<script>
+const K='dash.v1';let S={todos:[],deadlines:[],choir:[],events:[]};
+try{const r=localStorage.getItem(K);if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+S.buf=S.buf||15;
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
+const $=s=>document.querySelector(s);
+const uid=()=>Math.random().toString(36).slice(2,9);
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const p2=n=>String(n).padStart(2,'0');
+const fmt=d=>`${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}T${p2(d.getHours())}:${p2(d.getMinutes())}`;
+const todayS=()=>fmt(new Date()).slice(0,10);
+const dayDiff=s=>{const[a,b,c]=s.slice(0,10).split('-').map(Number);const n=new Date();return Math.round((new Date(a,b-1,c)-new Date(n.getFullYear(),n.getMonth(),n.getDate()))/864e5)};
+const nice=s=>{const[a,b,c]=s.slice(0,10).split('-').map(Number);return new Date(a,b-1,c).toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'})};
+const rel=n=>n<0?`${-n}d overdue`:n===0?'Today':n===1?'Tomorrow':`in ${n}d`;
+const cls=n=>n<0?'bad':n<=3?'warn':'ok';
+
+function parseICS(t){t=t.replace(/\r?\n[ \t]/g,'');const out=[];let cur=null;
+for(const ln of t.split(/\r?\n/)){
+if(ln==='BEGIN:VEVENT')cur={};
+else if(ln==='END:VEVENT'){if(cur&&cur.s&&cur.t)out.push({id:uid(),t:cur.t,s:cur.s,l:cur.l||'',src:'ics'});cur=null}
+else if(cur){const i=ln.indexOf(':');if(i<0)continue;const n=ln.slice(0,i).split(';')[0],v=ln.slice(i+1);
+if(n==='SUMMARY')cur.t=v.replace(/\\,/g,',').replace(/\\n/g,' ');
+else if(n==='LOCATION')cur.l=v.replace(/\\,/g,',');
+else if(n==='DTSTART'){const m=v.match(/^(\d{4})(\d\d)(\d\d)(?:T(\d\d)(\d\d))?(Z)?/);
+if(m){if(m[4]===undefined)cur.s=`${m[1]}-${m[2]}-${m[3]}`;
+else if(m[6])cur.s=fmt(new Date(Date.UTC(+m[1],m[2]-1,+m[3],+m[4],+m[5])));
+else cur.s=`${m[1]}-${m[2]}-${m[3]}T${m[4]}:${m[5]}`}}}}
+return out}
+
+function renderToday(){
+const open=S.deadlines.filter(x=>!x.done).sort((a,b)=>a.d<b.d?-1:1);
+const hot=open.filter(x=>dayDiff(x.d)<=0),el=$('#dt');
+if(hot.length){el.className='card wide dl-red';
+el.innerHTML='<h2>🔴 Deadline today</h2><ul>'+hot.map(x=>{const n=dayDiff(x.d);return `<li><span class="t"><b>${esc(x.t)}</b></span><span class="pill bad">${n<0?-n+'d overdue':'Due today'}</span></li>`}).join('')+'</ul>';
+}else if(open.length){const x=open[0],n=dayDiff(x.d);el.className='card wide dl-soon';
+el.innerHTML=`<h2>🟠 No deadline today — but do it ASAP</h2><div>Next up: <b>${esc(x.t)}</b> <span class="pill ${cls(n)}">${rel(n)}</span></div><div class="note">Not due today doesn’t mean it can wait. Start now so it’s not a last-minute rush.</div>`;
+}else{el.className='card wide dl-clear';el.innerHTML='<h2>✅ No deadlines</h2><div class="empty">You’re all clear.</div>'}
+}
+
+function renderFocus(){
+const all=[...S.todos.filter(x=>!x.done).map(x=>({...x,ls:'todos',k:'To-do'})),...S.choir.filter(x=>!x.done).map(x=>({...x,ls:'choir',k:'Choir'+(x.c?' · '+x.c:'')}))];
+all.sort((a,b)=>(a.d?0:1)-(b.d?0:1)||(a.d<b.d?-1:a.d>b.d?1:0));
+$('#fc').textContent=all.length+' to do';
+$('#focus').innerHTML=all.length?all.slice(0,6).map((t,i)=>`<li><input type="checkbox" data-a="tog" data-l="${t.ls}" data-id="${t.id}"><span class="t">${i===0?'<span class="day" style="display:block;margin:0">Start here</span>':''}${esc(t.t)}</span><span class="pill ${t.ls==='choir'?'ch':''}">${esc(t.k)}</span>${t.d?`<span class="pill ${cls(dayDiff(t.d))}">${rel(dayDiff(t.d))}</span>`:''}</li>`).join('')+(all.length>6?`<div class="note">+ ${all.length-6} more below</div>`:''):'<div class="empty">All done 🎉 Nothing left to do.</div>';
+}
+
+function renderNext(){
+const now=new Date();
+const nx=S.events.filter(e=>e.s.length>10&&!e.done&&new Date(e.s)>=now).sort((a,b)=>a.s<b.s?-1:1)[0];
+if(!nx){$('#nx').innerHTML='<div class="empty">No upcoming timed events. Add one or import your calendar.</div>';return}
+const st=new Date(nx.s),mins=Math.round((st-now)/6e4),lv=new Date(st-S.buf*6e4),lvm=Math.round((lv-now)/6e4);
+const tf=d=>d.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'});
+const dn=dayDiff(nx.s);
+const cd=mins>=1440?Math.floor(mins/1440)+'d '+Math.floor(mins%1440/60)+'h':mins>=60?Math.floor(mins/60)+'h '+mins%60+'m':mins+' min';
+$('#nx').innerHTML=`<div class="nxt"><div><div class="big">${tf(st)}</div><div class="day">${dn===0?'Today':dn===1?'Tomorrow':nice(nx.s)} · in ${cd}</div></div><div class="nxi"><div class="nt">${esc(nx.t)}</div><div>📍 ${nx.l?esc(nx.l):'No room set'}</div><div>🚶 Leave by <b>${tf(lv)}</b>${lvm<=0?' — time to go!':''}</div><label><input type="checkbox" data-a="tog" data-l="events" data-id="${nx.id}"> Mark as done</label></div></div>`;
+}
+
+function render(){
+const now=new Date(),h=now.getHours();
+$('#hi').textContent=(h<12?'Good morning':h<18?'Good afternoon':'Good evening')+' 👋';
+$('#date').textContent=now.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+const T=todayS();
+const evs=S.events.filter(e=>e.s.slice(0,10)>=T).sort((a,b)=>a.s<b.s?-1:1);
+const todayEv=evs.filter(e=>e.s.slice(0,10)===T&&!e.done).length;
+const dl=S.deadlines.filter(d=>!d.done);
+const wk=dl.filter(d=>dayDiff(d.d)<=7).length;
+const openTd=S.todos.filter(t=>!t.done).length,openCh=S.choir.filter(t=>!t.done).length;
+$('#stats').innerHTML=[[todayEv,'Events today'],[wk,'Deadlines within 7 days'],[openTd,'Open to-dos'],[openCh,'Choir tasks open']].map(([n,l])=>`<div class="stat"><b>${n}</b><span>${l}</span></div>`).join('');
+
+let eh='',last='';
+evs.slice(0,12).forEach(e=>{const n=dayDiff(e.s),lab=n===0?'Today':n===1?'Tomorrow':nice(e.s);
+if(lab!==last){eh+=`<div class="day">${esc(lab)}</div><ul>`;last=lab}
+const tm=e.s.length>10?new Date(e.s).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'}):'All day';
+eh+=`<li class="${e.done?'done':''}"><input type="checkbox" ${e.done?'checked':''} data-a="tog" data-l="events" data-id="${e.id}"><span class="when">${tm}</span><span class="t">${esc(e.t)}${e.l?` <span class="pill">${esc(e.l)}</span>`:''}</span><button class="x" data-a="del" data-l="events" data-id="${e.id}" aria-label="Remove">×</button></li>`;
+});
+$('#events').innerHTML=eh?eh.replace(/(<div class="day">)/g,(m,a,i)=>i?'</ul>'+m:m)+'</ul>':'<div class="empty">No upcoming events. Add one or import your Google Calendar file.</div>';
+
+const dls=[...S.deadlines.filter(x=>!x.done),...S.deadlines.filter(x=>x.done)];
+$('#deadlines').innerHTML=dls.length?dls.map((d,i)=>{const n=dayDiff(d.d);return `<li class="${d.done?'done':''}" data-id="${d.id}">${d.done?'':`<span class="grip" title="Drag to reorder">⠿</span><span class="pn">${i+1}</span>`}<input type="checkbox" ${d.done?'checked':''} data-a="tog" data-l="deadlines" data-id="${d.id}"><span class="t">${esc(d.t)}</span>${d.done?'':`<span class="pill ${cls(n)}">${rel(n)}</span>`}<button class="x" data-a="del" data-l="deadlines" data-id="${d.id}" aria-label="Delete">×</button></li>`}).join(''):'<div class="empty">No deadlines. Nice.</div>';
+
+const lst=(a,l,chr)=>a.length?[...a].sort((x,y)=>(x.done-y.done)).map(t=>`<li class="${t.done?'done':''}"><input type="checkbox" ${t.done?'checked':''} data-a="tog" data-l="${l}" data-id="${t.id}"><span class="t">${esc(t.t)}</span>${chr&&t.c?`<span class="pill ch">${esc(t.c)}</span>`:''}${t.d&&!t.done?`<span class="pill ${cls(dayDiff(t.d))}">${rel(dayDiff(t.d))}</span>`:''}<button class="x" data-a="del" data-l="${l}" data-id="${t.id}" aria-label="Delete">×</button></li>`).join(''):'<div class="empty">Nothing here yet.</div>';
+$('#todos').innerHTML=lst(S.todos,'todos',0);
+$('#choir').innerHTML=lst(S.choir,'choir',1);
+renderNext();
+renderFocus();
+renderToday();
+}
+
+const onSub=(id,fn)=>$(id).addEventListener('submit',e=>{e.preventDefault();fn(new FormData(e.target));e.target.reset();save();render()});
+onSub('#fEv',f=>S.events.push({id:uid(),t:f.get('t'),s:f.get('h')?f.get('d')+'T'+f.get('h'):f.get('d'),l:f.get('l')||'',src:'manual'}));
+onSub('#fDl',f=>S.deadlines.push({id:uid(),t:f.get('t'),d:f.get('d'),done:false}));
+onSub('#fTd',f=>S.todos.push({id:uid(),t:f.get('t'),done:false}));
+onSub('#fCh',f=>S.choir.push({id:uid(),t:f.get('t'),c:f.get('c'),d:f.get('d')||'',done:false}));
+
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a="del"]');if(!b)return;
+S[b.dataset.l]=S[b.dataset.l].filter(x=>x.id!==b.dataset.id);save();render()});
+document.addEventListener('change',e=>{const b=e.target.closest('[data-a="tog"]');if(!b)return;
+const it=S[b.dataset.l].find(x=>x.id===b.dataset.id);if(it){it.done=b.checked;save();render()}});
+$('#ics').addEventListener('change',async e=>{const f=e.target.files[0];if(!f)return;
+try{const ev=parseICS(await f.text());const dn=new Set(S.events.filter(x=>x.done&&x.src==='ics').map(x=>x.t+x.s));ev.forEach(x=>{if(dn.has(x.t+x.s))x.done=true});S.events=S.events.filter(x=>x.src!=='ics').concat(ev);save();render()}catch(err){alert('Couldn’t read that calendar file.')}
+e.target.value=''});
+$('#buf').value=S.buf;
+$('#buf').addEventListener('change',e=>{S.buf=+e.target.value;save();renderNext()});
+setInterval(renderNext,60000);
+let dragEl=null;const DL=$('#deadlines');
+DL.addEventListener('pointerdown',e=>{const g=e.target.closest('.grip');if(!g)return;e.preventDefault();dragEl=g.closest('li');dragEl.classList.add('drag');try{g.setPointerCapture(e.pointerId)}catch(x){}});
+DL.addEventListener('pointermove',e=>{if(!dragEl)return;const o=document.elementFromPoint(e.clientX,e.clientY),li=o&&o.closest('#deadlines li');
+if(!li||li===dragEl||li.classList.contains('done'))return;const r=li.getBoundingClientRect();li.parentNode.insertBefore(dragEl,e.clientY<r.top+r.height/2?li:li.nextSibling)});
+const endDrag=()=>{if(!dragEl)return;dragEl=null;const ids=[...DL.querySelectorAll('li')].map(l=>l.dataset.id);S.deadlines=ids.map(id=>S.deadlines.find(x=>x.id===id)).filter(Boolean);save();render()};
+DL.addEventListener('pointerup',endDrag);DL.addEventListener('pointercancel',endDrag);
+$('#sortDl').addEventListener('click',()=>{S.deadlines.sort((a,b)=>a.d<b.d?-1:1);save();render()});
+render();
+</script>
+</body></html>
