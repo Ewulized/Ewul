@@ -196,7 +196,7 @@ const onSub=(id,fn)=>$(id).addEventListener('submit',e=>{e.preventDefault();fn(n
 onSub('#fEv',f=>S.events.push({id:uid(),t:f.get('t'),s:f.get('h')?f.get('d')+'T'+f.get('h'):f.get('d'),l:f.get('l')||'',src:'manual'}));
 onSub('#fDl',f=>S.deadlines.push({id:uid(),t:f.get('t'),d:f.get('d'),done:false}));
 onSub('#fTd',f=>S.todos.push({id:uid(),t:f.get('t'),done:false}));
-onSub('#fCh',f=>S.choir.push({id:uid(),t:f.get('t'),c:f.get('c'),d:f.get('d')||'',done:false}));
+onSub('#fCh',f=>S.choir.push({id:uid(),t:f.get('t'),c:f.get('c'),d:f.get('d')||'',done:false}));    
 
 document.addEventListener('click',e=>{const b=e.target.closest('[data-a="del"]');if(!b)return;
 S[b.dataset.l]=S[b.dataset.l].filter(x=>x.id!==b.dataset.id);save();render()});
